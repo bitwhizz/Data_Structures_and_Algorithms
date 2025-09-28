@@ -57,7 +57,7 @@
 
   #TARGET = sorting_practice/selection_sort
 	#TARGET = sorting_practice/bubble_sort
-	#TARGET = sorting_practice/insertion_sort
+	TARGET = sorting_practice/insertion_sort
 	#TARGET = sorting_practice/merge_sort
 	#TARGET = sorting_practice/quick_sort
 	#TARGET  = sorting_practice/quick_sort_iterative
@@ -85,7 +85,7 @@
 	#TARGET = Matrix/gauss_elimination
 	#TARGET = Matrix/LU_decomposition
 
-	TARGET = ds_application/LRU_Cache
+	# TARGET = ds_application/LRU_Cache
 
   all: $(TARGET).c
 	$(CC) $(CFLAGS) -o exe $(TARGET).c

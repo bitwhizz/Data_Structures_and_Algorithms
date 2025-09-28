@@ -43,7 +43,7 @@ void insertionSort(int arr[], int n)
         while (j >= 0 && arr[j] > key) {
             arr[j + 1] = arr[j];
             j = j - 1;
-        }
+        } //This while loop have sub-iterations till condition becomes false.
 
         arr[j + 1] = key;
     }
@@ -69,3 +69,102 @@ int main()
 
     return 0;
 }
+
+
+/*
+(gdb) p *arr@n
+$6 = {12, 11, 13, 5, 6, 9, 9}
+(gdb) c
+Continuing.
+
+Breakpoint 4, insertionSort (arr=0x7fffffffdbb0, n=7) at sorting_practice/insertion_sort.c:43
+43	        while (j >= 0 && arr[j] > key) {
+(gdb) info local
+i = 1
+key = 11
+j = 0
+(gdb) c
+Continuing.
+
+Breakpoint 3, insertionSort (arr=0x7fffffffdbb0, n=7) at sorting_practice/insertion_sort.c:36
+36	        key = arr[i];
+(gdb) p *arr@n
+$7 = {11, 12, 13, 5, 6, 9, 9}
+(gdb) c
+Continuing.
+
+Breakpoint 4, insertionSort (arr=0x7fffffffdbb0, n=7) at sorting_practice/insertion_sort.c:43
+43	        while (j >= 0 && arr[j] > key) {
+(gdb) info local
+i = 2
+key = 13
+j = 1
+(gdb) c
+Continuing.
+
+Breakpoint 3, insertionSort (arr=0x7fffffffdbb0, n=7) at sorting_practice/insertion_sort.c:36
+36	        key = arr[i];
+(gdb) p *arr@n
+$8 = {11, 12, 13, 5, 6, 9, 9}
+(gdb) c
+Continuing.
+
+Breakpoint 4, insertionSort (arr=0x7fffffffdbb0, n=7) at sorting_practice/insertion_sort.c:43
+43	        while (j >= 0 && arr[j] > key) {
+(gdb) info local
+i = 3
+key = 5
+j = 2
+(gdb) c
+Continuing.
+
+Breakpoint 3, insertionSort (arr=0x7fffffffdbb0, n=7) at sorting_practice/insertion_sort.c:36
+36	        key = arr[i];
+(gdb) p *arr@n
+$9 = {5, 11, 12, 13, 6, 9, 9}
+(gdb) c
+Continuing.
+
+Breakpoint 4, insertionSort (arr=0x7fffffffdbb0, n=7) at sorting_practice/insertion_sort.c:43
+43	        while (j >= 0 && arr[j] > key) {
+(gdb) info local
+i = 4
+key = 6
+j = 3
+(gdb) c
+Continuing.
+
+Breakpoint 3, insertionSort (arr=0x7fffffffdbb0, n=7) at sorting_practice/insertion_sort.c:36
+36	        key = arr[i];
+(gdb) p *arr@n
+$10 = {5, 6, 11, 12, 13, 9, 9}
+(gdb) c
+Continuing.
+
+Breakpoint 4, insertionSort (arr=0x7fffffffdbb0, n=7) at sorting_practice/insertion_sort.c:43
+43	        while (j >= 0 && arr[j] > key) {
+(gdb) info local
+i = 5
+key = 9
+j = 4
+(gdb) c
+Continuing.
+
+Breakpoint 3, insertionSort (arr=0x7fffffffdbb0, n=7) at sorting_practice/insertion_sort.c:36
+36	        key = arr[i];
+(gdb) p *arr@n
+$11 = {5, 6, 9, 11, 12, 13, 9}
+(gdb) c
+Continuing.
+
+Breakpoint 4, insertionSort (arr=0x7fffffffdbb0, n=7) at sorting_practice/insertion_sort.c:43
+43	        while (j >= 0 && arr[j] > key) {
+(gdb) info local
+i = 6
+key = 9
+j = 5
+(gdb) c
+Continuing.
+5 6 9 9 11 12 13 
+
+*/
