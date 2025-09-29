@@ -55,9 +55,9 @@
   #TARGET = hash_table/hash_chain_collision_resolution
 
 
-  #TARGET = sorting_practice/selection_sort
+  TARGET = sorting_practice/selection_sort
 	#TARGET = sorting_practice/bubble_sort
-	TARGET = sorting_practice/insertion_sort
+	#TARGET = sorting_practice/insertion_sort_gdb
 	#TARGET = sorting_practice/merge_sort
 	#TARGET = sorting_practice/quick_sort
 	#TARGET  = sorting_practice/quick_sort_iterative
