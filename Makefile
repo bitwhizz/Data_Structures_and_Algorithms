@@ -56,11 +56,11 @@
 
 
   # TARGET = sorting_practice/selection_sort
-	#TARGET = sorting_practice/bubble_sort
+	TARGET = sorting_practice/bubble_sort
 	#TARGET = sorting_practice/insertion_sort_gdb
 	#TARGET = sorting_practice/merge_sort
 	#TARGET = sorting_practice/quick_sort
-	TARGET  = sorting_practice/quick_sort_iterative
+	# TARGET  = sorting_practice/quick_sort_iterative
 	#TARGET  = sorting_practice/merge_sort_iterative
 	#TARGET = searching_practice/linear_search
 	#TARGET = searching_practice/binary_search
