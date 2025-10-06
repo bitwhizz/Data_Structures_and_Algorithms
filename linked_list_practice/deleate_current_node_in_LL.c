@@ -46,7 +46,7 @@ void front(struct NODE** head_ref, int new_data)
 void delete(struct NODE* node){
   struct NODE *temp = node->next;
 
-  node->g_value = node->next->g_value;
+  node->g_value = node->next->g_value;  // doesn't make sense
 
   node->next = temp->next;
 

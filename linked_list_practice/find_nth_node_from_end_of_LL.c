@@ -3,16 +3,21 @@ Find	n th 	node	from	the	end	of	a	Linked	List.
 
 Using lenght of linked list approach :
 
-We can	find	the	length	of	the	linked	list	just	by	starting	at	the	head	node	and	traversing	the	list.
+We can	find	the	length	of	the	linked	list	just	by	starting	at	the	head	node	
+and	traversing	the	list.
+
 say M is the lenght of linked list we got by traversing.
 
 After	 finding	 the	 length,
-compute	M	–	n	+	1	and	with	one	more	scan	we	can	get	the	M	–	n+	1 th 	node	from	the	beginning.
+compute	M	–	n	+	1	and	with	one	more	scan	we	can	get	the	M	–	n+	1 th 	node
+	from	the	beginning.
 
-This	solution	needs	two	scans:	one	for	finding	the	length	of	the	list	and	the	other	for	finding	M–n+1 th 	node	from	the	beginning.
+This	solution	needs	two	scans:	one	for	finding	the	length	of	the	list	and	
+the	other	for	finding	M–n+1 th 	node	from	the	beginning.
 
-Time	Complexity:	Time	for	finding	the	length	+	Time	for	finding	the	M	–	n	+	1 th 	 node	 from	 the
-beginning.	 Therefore,	 T(n)	 =	 O(n)	 +	 O(n)	 ≈	 O(n).	 Space	 Complexity:	 O(1).
+Time	Complexity:	Time	for	finding	the	length	+	Time	for	finding	the	M	–	n	+	1 th 	
+ node	 from	 the beginning.	 
+Therefore,	 T(n)	 =	 O(n)	 +	 O(n)	 ≈	 O(n).	 Space	 Complexity:	 O(1).
 
 */
 

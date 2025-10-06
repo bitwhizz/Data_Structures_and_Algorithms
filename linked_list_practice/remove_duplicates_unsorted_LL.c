@@ -21,12 +21,12 @@ struct Node
 //#define NULL (void *)0
 
 struct Node *head[TABLE_SIZE]={NULL};
-struct Node *current;
 
 void insert(int key)
 {
     int index;
     index=key%TABLE_SIZE;
+    struct Node *current=NULL;
 
     struct Node * newnode=(struct Node *)malloc(sizeof(struct Node));
 
@@ -50,7 +50,7 @@ void insert(int key)
 int search(int key)
 {
     int index;
-
+    struct Node *current=NULL;
     index=key%TABLE_SIZE;
 
     if(head[index] == NULL){

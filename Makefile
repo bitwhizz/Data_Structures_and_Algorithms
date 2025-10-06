@@ -31,7 +31,7 @@
 	#TARGET  =  linked_list_practice/sorted_merge_two_LL
 	#TARGET  =  linked_list_practice/deleate_current_node_in_LL
 	#TARGET  =  linked_list_practice/clone_linked_list
-
+  TARGET  = linked_list_practice/doubly_linked_list_insert
 
 	#TARGET = queues_practice/Queue_1
   #TARGET = queues_practice/queue_using_ll
@@ -56,7 +56,7 @@
 
 
   # TARGET = sorting_practice/selection_sort
-	TARGET = sorting_practice/bubble_sort
+	# TARGET = sorting_practice/bubble_sort
 	#TARGET = sorting_practice/insertion_sort_gdb
 	#TARGET = sorting_practice/merge_sort
 	#TARGET = sorting_practice/quick_sort
