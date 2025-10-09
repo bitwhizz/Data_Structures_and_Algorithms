@@ -41,19 +41,19 @@ int deQueue(struct queue *q)
         exit(0);
     }
 
-/* Move elements from stack1 to stack 2 only if
-stack2 is empty */
-if(q->stack2 == NULL)
-{
-    while(q->stack1 != NULL)
+    /* Move elements from stack1 to stack 2 only if
+    stack2 is empty */
+    if(q->stack2 == NULL)
     {
-        x = pop(&q->stack1);
-        push(&q->stack2, x);
+        while(q->stack1 != NULL)
+        {
+            x = pop(&q->stack1);
+            push(&q->stack2, x);
+        }
     }
-}
- 
-x = pop(&q->stack2);
-return x;
+    
+    x = pop(&q->stack2);
+    return x;
 }
 
 /* Function to push an item to stack*/
@@ -70,14 +70,14 @@ void push(struct sNode** top_ref, int new_data)
              
         }
  
-/* put in the data */
-new_node->data = new_data;
- 
-/* link the old list off the new node */
-new_node->next = (*top_ref);
- 
-/* move the head to point to the new node */
-(*top_ref) = new_node;
+    /* put in the data */
+    new_node->data = new_data;
+    
+    /* link the old list off the new node */
+    new_node->next = (*top_ref);
+    
+    /* move the head to point to the new node */
+    (*top_ref) = new_node;
 }
 
 /* Function to pop an item from stack*/
@@ -109,12 +109,21 @@ int main()
     q->stack1=NULL;
 	q->stack2=NULL;
 
-	    enQueue(q, 1);
-	    enQueue(q, 2);
-	    enQueue(q, 3);
+	enQueue(q, 1);
+	enQueue(q, 2);
+	enQueue(q, 3);
 
     /* Dequeue items */
-    //printf("%d ", deQueue(q));
- 
+    printf("%d ", deQueue(q));
+
+	enQueue(q, 4);
+	enQueue(q, 5);
+	enQueue(q, 6);
+
+    printf("%d ", deQueue(q));
+    printf("%d ", deQueue(q));
+    printf("%d ", deQueue(q));
+    printf("%d ", deQueue(q));    
+
     getchar();
 }
