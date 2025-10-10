@@ -31,7 +31,7 @@
 	#TARGET  =  linked_list_practice/sorted_merge_two_LL
 	#TARGET  =  linked_list_practice/deleate_current_node_in_LL
 	#TARGET  =  linked_list_practice/clone_linked_list
-  TARGET  = linked_list_practice/doubly_linked_list_insert
+  # TARGET  = linked_list_practice/doubly_linked_list_insert
 
 	#TARGET = queues_practice/Queue_1
   #TARGET = queues_practice/queue_using_ll
@@ -49,7 +49,7 @@
   #TARGET = hash_table/Linear_probing_Open_Addressing
   #TARGET = hash_table/double_hashing_technique
   #TARGET = hash_table/hash_c
-  #TARGET = hash_table/trivial_hashing
+  TARGET = hash_table/trivial_hashing
   #TARGET = hash_table/hash_lookups
   #TARGET = hash_table/first_repeated_char_hash
   #TARGET = hash_table/hash_chain_collision_resolution

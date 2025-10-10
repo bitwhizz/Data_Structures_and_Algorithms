@@ -38,6 +38,16 @@ If hash[X][1] is one then the number is present
 // Since array is global, it is initialized as 0.
 bool has[MAX + 1][2];
 
+#define OPTIMIZE    1
+
+
+#ifdef OPTIMIZE
+unsigned int get_abs(int n){
+    int const mask = n >> (sizeof(int)*__CHAR_BIT__-1);
+    return ((n+mask)^mask);
+}
+#endif
+
 // searching if X is Present in the given array
 // or not.
 bool search(int X)
@@ -51,7 +61,12 @@ bool search(int X)
 
     // if X is negative take the absolute
     // value of X.
-    X = abs(X);
+    #ifdef OPTIMIZE
+        X = get_abs(X);
+    #elif
+        X = abs(X);
+    #endif
+
     if (has[X][1] == 1)
         return true;
 
@@ -62,9 +77,17 @@ void insert(int a[], int n)
 {
     for (int i = 0; i < n; i++) {
         if (a[i] >= 0)
+        {
             has[a[i]][0] = 1;
-       else
+        }
+        else
+       {
+        #ifdef OPTIMIZE
+            has[get_abs(a[i])][1] = 1;
+        #elif
             has[abs(a[i])][1] = 1;
+        #endif
+       }
     }
 }
 
