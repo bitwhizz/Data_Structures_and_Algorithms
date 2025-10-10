@@ -45,11 +45,11 @@
   #TARGET = stack_practice/stack_lnklst
 	#TARGET = stack_practice/balancing_of_symbols
 
-  #TARGET = hash_table/seperate_chaining
+  TARGET = hash_table/seperate_chaining
   #TARGET = hash_table/Linear_probing_Open_Addressing
   #TARGET = hash_table/double_hashing_technique
   #TARGET = hash_table/hash_c
-  TARGET = hash_table/trivial_hashing
+  # TARGET = hash_table/trivial_hashing
   #TARGET = hash_table/hash_lookups
   #TARGET = hash_table/first_repeated_char_hash
   #TARGET = hash_table/hash_chain_collision_resolution
