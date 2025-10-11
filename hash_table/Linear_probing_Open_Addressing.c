@@ -78,6 +78,8 @@ void Delete(int element)
     int loc=Search(element);
     if(loc!=-1)
     {
+        //the slot cannot be simply marked as empty ,
+        //as it could break the search paths for other keys
         hash[loc]=-1;
         count--;
     }
