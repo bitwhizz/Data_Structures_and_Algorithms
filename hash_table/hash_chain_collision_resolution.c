@@ -140,7 +140,7 @@ int main()
 	int opt=0;
 	int idata=0;
 
-	struct HashTable *p =CreateHashTable(10);
+	struct HashTable *hmain =CreateHashTable(10);
 
 	while(1){
 
@@ -149,18 +149,18 @@ int main()
 		if(opt==1){
 
 			scanf("%d",&idata);
-			HashInsert(p,idata);
+			HashInsert(hmain,idata);
 			printf("inserted item : %d\n",idata);
 
 		}else if(opt==2){
 			scanf("%d",&idata);
-			HashDelete(p,idata);
+			HashDelete(hmain,idata);
 			printf("deleted item : %d\n",idata);
 
 		}else if(opt==3){
 
 			scanf("%d",&idata);
-			HashSearch(p,idata);
+			HashSearch(hmain,idata);
 			printf("serched element : %d\n",idata);
 
 		}
