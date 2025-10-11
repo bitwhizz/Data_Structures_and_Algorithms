@@ -51,27 +51,27 @@ struct HashTable{
 
 struct HashTable *CreateHashTable(int size){
 
-	struct HashTable *h=NULL;
+	struct HashTable *hmain=NULL;
 
-	h=(struct HashTable*)malloc(sizeof(struct HashTable));
+	hmain=(struct HashTable*)malloc(sizeof(struct HashTable));
 
-	if(!h)
+	if(!hmain)
 		return NULL;
 
-	h->tsize=size/LOAD_FACTOR;
-	h->count = 0;
-	h->Table = (struct HashTableNode**)malloc(sizeof(struct HashTableNode*)* h->tsize);
+	hmain->tsize=size/LOAD_FACTOR;
+	hmain->count = 0;
+	hmain->Table = (struct HashTableNode**)malloc(sizeof(struct HashTableNode*)* hmain->tsize);
 
-	if(!h->Table){
+	if(!hmain->Table){
 		printf("Memory Error\n");
 		return NULL;
 	}
 
-	for(int i=0;i<h->tsize;i++){
-		h->Table[i]->next= NULL;
-		h->Table[i]->bcount= 0;
+	for(int itemp=0;itemp<hmain->tsize;itemp++){
+		hmain->Table[itemp]->next= NULL;
+		hmain->Table[itemp]->bcount= 0;
 	}
-	return h;
+	return hmain;
 }
 
 int Hash(int data,int size){
@@ -79,9 +79,9 @@ int Hash(int data,int size){
 	return data%size;
 }
 
-int HashSearch(struct HashTable *h,int data){
+int HashSearch(struct HashTable *hmain,int data){
 	struct ListNode *temp;
-	temp = h->Table[Hash(data,h->tsize)]->next; //create your own Hash() function
+	temp = hmain->Table[Hash(data,hmain->tsize)]->next; //create your own Hash() function
 	while(temp){
 		if(temp->data == data)
 			return 1;
@@ -90,14 +90,14 @@ int HashSearch(struct HashTable *h,int data){
 	return 0;
 }
 
-int HashInsert(struct HashTable *h,int data){
+int HashInsert(struct HashTable *hmain,int data){
 	int index;
 	struct ListNode *temp,*newnode;
-	if(HashSearch(h,data))
+	if(HashSearch(hmain,data))
 		return 0;
-	index=Hash(data,h->tsize);			//Assume hash is a built-in function
+	index=Hash(data,hmain->tsize);			//Assume hash is a built-in function
 
-	temp=h->Table[index]->next;
+	temp=hmain->Table[index]->next;
 	newnode = (struct ListNode *)malloc(sizeof(struct ListNode));
 
 	if(!newnode){
@@ -107,28 +107,28 @@ int HashInsert(struct HashTable *h,int data){
 
 	newnode->key=index;
 	newnode->data=data;
-	newnode->next=h->Table[index]->next;
-	h->Table[index]->next=newnode;
-	h->Table[index]->bcount++;
-	h->count++;
+	newnode->next=hmain->Table[index]->next;
+	hmain->Table[index]->next=newnode;
+	hmain->Table[index]->bcount++;
+	hmain->count++;
 
 	return 1;
 }
 
-int HashDelete(struct HashTable *h,int data){
+int HashDelete(struct HashTable *hmain,int data){
 	int index;
 	struct ListNode *temp,*prev;
 
-	index=Hash(data,h->tsize);			//Assume hash is a built-in function
+	index=Hash(data,hmain->tsize);			//Assume hash is a built-in function
 
-	for(temp=h->Table[index]->next,prev = NULL;temp;prev = temp,temp=temp->next){
+	for(temp=hmain->Table[index]->next,prev = NULL;temp;prev = temp,temp=temp->next){
 
 		if(temp->data == data){
 			if(prev!=NULL)
 				prev->next=temp->next;
 			free(temp);
-			h->Table[index]->bcount--;
-			h->count--;
+			hmain->Table[index]->bcount--;
+			hmain->count--;
 			return 1;
 		}
 	}
