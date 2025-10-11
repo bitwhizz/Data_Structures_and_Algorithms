@@ -25,6 +25,16 @@ int if_prime(int n);
 stores	 the	 keys	 and	 their	 associated	 values,	 and
  hash	 table	 uses	 a	 hash	 function	 to	 map	 keys	 to
 their	associated	values.
+ 
+ 
+ Reducing collisions by a technique: using prime numbers.
+ 
+ this method benefits us to choose a length that has the least number of factors. 
+ Enter prime numbers. They famously are only divisible by 1 and themselves. 
+ Thus, choosing to set your hash table length to a large prime number 
+ will greatly reduce the occurrence of collisions.
+
+ for more detail refer article , https://medium.com/swlh/why-should-the-length-of-your-hash-table-be-a-prime-number-760ec65a75d1 
  *
  * */
 
