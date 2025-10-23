@@ -97,45 +97,9 @@ struct BinaryTreeNode* pop(struct StackNode** head_ref){
   return poppedNode;
 }
 
-// void PreOrderNonRecursive(struct BinaryTreeNode *root)
-// {   
-//   if(root == NULL)
-//   {
-//     return;
-//   }
-
-//   struct StackNode* stack = NULL;
-
-//   printf("Nodes of the tree would be visited in DLR order : ");
-  
-
-//   push(&stack,root);
-
-//   while(!isEmpty(stack)){
-
-//     struct BinaryTreeNode* current= pop(&stack);
-//     printf("%d", current->data);
 
 
-//     Push the right child first, then the left child
-//     This ensures that the left child is processed before the right child
-//     due to the LIFO nature of the stack.
-
-//     if(current->right != NULL){
-//       push(&stack , current ->right);
-//     }
-
-//     if(current->left != NULL){
-//       push(&stack, current ->left);
-//     }
-//   }
-
-//   printf("\n");
-  
-// }
-
-
-void PreOrderNonRecursive(struct BinaryTreeNode *root)
+void InOrderNonRecursive(struct BinaryTreeNode *root)
 {   
   if(root == NULL)
   {
@@ -144,12 +108,10 @@ void PreOrderNonRecursive(struct BinaryTreeNode *root)
 
   struct StackNode* stack = NULL;
 
-  printf("Nodes of the tree would be visited in DLR order : ");
+  printf("Nodes of the tree would be visited in LDR order : ");
   
   while(1){
     while(root){
-      //process current tree node
-          printf("%d", root->data);
           push(&stack,root);
       //if left subtree node exists ,add to stack
           root = root->left;
@@ -158,9 +120,11 @@ void PreOrderNonRecursive(struct BinaryTreeNode *root)
     if(isEmpty(stack))
       break;
 
-      root = pop(&stack);
+    root = pop(&stack);
+      //process current tree node
+    printf("%d", root->data);
       //indicates completion of left subtree nodes and current tree node , now got to right subtree nodes.
-      root = root->right;
+    root = root->right;
   }
 
   printf("\n");
@@ -234,7 +198,7 @@ NULL NULL
   root->right->right->left = NULL;
   root->right->right->right = NULL;
 
-  PreOrderNonRecursive(root);
+  InOrderNonRecursive(root);
 
   //getchar();
 
@@ -250,12 +214,12 @@ NULL NULL
 }
 
 /*
-tree node  r: 2599010 
-tree node  rl: 2599030 
-tree node  rll: 2599070 
-tree node  rlr: 2599090 
-tree node  rr: 2599050 
-tree node  rrl: 25990b0 
-tree node  rrr: 25990d0 
-Nodes of the tree would be visited in DLR order : 1245367
+tree node  r: 19ef010 
+tree node  rl: 19ef030 
+tree node  rll: 19ef070 
+tree node  rlr: 19ef090 
+tree node  rr: 19ef050 
+tree node  rrl: 19ef0b0 
+tree node  rrr: 19ef0d0 
+Nodes of the tree would be visited in LDR order : 4251637
 */
