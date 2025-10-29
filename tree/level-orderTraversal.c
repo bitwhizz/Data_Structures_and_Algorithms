@@ -3,6 +3,15 @@
  *
  *  Created on: 27 Octuber 2025
  *      Author: saif
+ * 
+ *  
+ * Visit the root
+ * 
+ * while traversiing level (keep all the elements at level +1 in queue)
+ * 
+ * Go to next level and visit all the nodes at that level.
+ * 
+ * Repeat this until all levels are completed
  */
 
 #include<stdio.h>
@@ -114,7 +123,7 @@ void levelOrderTraversal(struct BinaryTreeNode *root)
         return;
     }
 
-    printf("Nodes of the tree would be visited in order : ");
+    printf("Nodes of the tree would be visited in Level order : ");
 
     struct Queue *q = createQueue();
     enqueue(q,root);

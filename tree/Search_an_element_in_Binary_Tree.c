@@ -1,11 +1,13 @@
 /*
- * find_Height_of_Binary_Tree.c
+ * Search_an_element_in_Binary_Tree.c
  *
  *  Created on: 29 Octuber 2025
  *      Author: saif
  * 
- *  Using level order traversal. This is similar to BFS of the Graph algorithms.
- * End of level is identified with NULL.
+ * Algorithm to search an element in binary tree.
+ * 
+ * Given a binary tree , return True if a node with data is found in the tree.
+ * Recurse down the tree , choose left or right branch by comparing data with each node's data.
  */
 
 #include<stdio.h>
@@ -111,13 +113,13 @@ void DeleteQueue(struct Queue* q)
     free(q);
 }
 
-int FindHeightofBinaryTree(struct BinaryTreeNode *root)
+bool SearchUsingLevelOrder(struct BinaryTreeNode *root, int data)
 {
-    int level = 0,leftheight = 0,rightheight = 0;
     if(root == NULL){
         return 0;
     }
-    printf("Nodes of the tree would be visited in level order : ");
+
+    printf("Nodes of the tree would be visited in Level order : ");
 
     struct Queue *q = createQueue();
     enqueue(q,root);
@@ -127,30 +129,20 @@ int FindHeightofBinaryTree(struct BinaryTreeNode *root)
         struct Qnode *current = dequeue(q);
         printf("%d",current->treeNode->data);
 
+        if(data == current->treeNode->data)
+            return true;
+
         if(current->treeNode->left != NULL){
             enqueue(q,current->treeNode->left);
-            leftheight++;
         }
 
         if(current->treeNode->right != NULL){
             enqueue(q,current->treeNode->right);
-            rightheight++;
         }
     }
-
-    if(leftheight < rightheight)
-    {
-        level = rightheight;
-    }
-    else{
-        level = leftheight;
-    }
     printf("\n");
-
     //Free the queue memory
     DeleteQueue(q);
-
-    return level;
 }
 
 int main()
@@ -190,7 +182,7 @@ NULL NULL
   root->left->right  = createnode(5);
   root->right->left  = createnode(6);
   root->right->right = createnode(7);
-  root->left->left->left  = createnode(8);   //testing left subtree for tree height
+
 
 
   /* 4 becomes left child of 2
@@ -209,11 +201,8 @@ NULL NULL
   printf("tree node  rr: %x \n",root->right);
   printf("tree node  rrl: %x \n",root->right->left);
   printf("tree node  rrr: %x \n",root->right->right);
-  printf("tree node  rrr: %x \n",root->left->left->left);
-  printf("tree node  rlll: %x \n",root->left->left->left);
-  
-  root->left->left->left->left= NULL;
-  //root->left->left->left= NULL;
+
+  root->left->left->left = NULL;
   root->left->left->right = NULL;
   root->left->right->left  = NULL;
   root->left->right->right  = NULL;
@@ -222,9 +211,13 @@ NULL NULL
   root->right->right->left = NULL;
   root->right->right->right = NULL;
 
-
-   printf("Height of the Nodes of the tree would be  :  %d \n", FindHeightofBinaryTree(root));
-
+  if(SearchUsingLevelOrder(root,5) == true)
+  {
+    printf("\n the element %d is present in binary tree \n",5);
+  }
+  else{
+     printf("\n the element %d is not present in binary tree \n",5);   
+  }
 
   //getchar();
 
@@ -241,15 +234,14 @@ NULL NULL
 
 
 /*
-tree node  r: 1f47010 
-tree node  rl: 1f47030 
-tree node  rll: 1f47070 
-tree node  rlr: 1f47090 
-tree node  rr: 1f47050 
-tree node  rrl: 1f470b0 
-tree node  rrr: 1f470d0 
-tree node  rrr: 1f470f0 
-tree node  rlll: 1f470f0 
-Nodes of the tree would be visited in level order : 12345678
-Height of the Nodes of the tree would be  :  4
+tree node  r: 1de9010 
+tree node  rl: 1de9030 
+tree node  rll: 1de9070 
+tree node  rlr: 1de9090 
+tree node  rr: 1de9050 
+tree node  rrl: 1de90b0 
+tree node  rrr: 1de90d0 
+Nodes of the tree would be visited in Level order : 12345
+ the element 5 is present in binary tree 
+
 */

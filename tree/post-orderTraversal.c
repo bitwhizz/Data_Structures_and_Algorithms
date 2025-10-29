@@ -4,7 +4,7 @@
  *  Created on: 24 oct 2025
  *      Author: saif ulla baig
 
-DLR : process the current node data , process left subtree and then process right subtree.
+LRD : process left subtree , process right subtree and then process the current node data.
 
 */
 
