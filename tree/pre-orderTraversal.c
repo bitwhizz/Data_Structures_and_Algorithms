@@ -6,6 +6,20 @@
 
 DLR : process the current node data , process left subtree and then process right subtree.
 
+
+command to check the meamory leaks in heap allocations
+valgrind --leak-check=yes pre-orderTraversal
+
+Nodes of the tree would be visited in DLR order : 124p4p25p5p136p6p37p7
+==5072== 
+==5072== HEAP SUMMARY:
+==5072==     in use at exit: 0 bytes in 0 blocks
+==5072==   total heap usage: 15 allocs, 15 frees, 1,304 bytes allocated
+==5072== 
+==5072== All heap blocks were freed -- no leaks are possible
+==5072== 
+==5072== For counts of detected and suppressed errors, rerun with: -v
+==5072== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 */
 
 
