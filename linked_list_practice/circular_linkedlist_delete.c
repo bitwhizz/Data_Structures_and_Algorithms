@@ -17,7 +17,7 @@ struct  CNode *next;
 
 void DeleteLastNode(struct CNode **head)
 {
-	struct CNode *temp = *head, *current = *head;
+	struct CNode *prev = *head, *current = *head;
 
 	if(*head == NULL)
 	{
@@ -26,11 +26,11 @@ void DeleteLastNode(struct CNode **head)
 
 	while(current->next != *head)
 	{
-		temp = current;
+		prev = current;
 		current = current->next;
 	}
 
-	temp->next = current->next;
+	prev->next = current->next;
 	free(current);
 	return;
 }
