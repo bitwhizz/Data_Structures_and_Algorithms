@@ -7,11 +7,12 @@
  Selection Sort		O(n^2)
  Bubble Sort		    O(n^2)
  Insertion Sort	  O(n^2)
- Heap Sort		      O(n log(n))
- Quick Sort		    O(n^2)
- Merge Sort	      O(n log(n))
- Bucket Sort		    O(n^2)
- Radix Sort	      O(nk)	
+
+Adaptive : if the input list is presorted then insertion sort takes
+ O(n + d), where d is the  number of inversions.
+
+ Practically more efficient than selection sort and bubble sort , even though all of them
+ have O(n^2) worst case complexity.
  */
 
 
@@ -21,11 +22,15 @@
 
 /*
  *
+ In this algorithm , each iteration removes an element from the input data
+ and inserts it into the correct position in the list being sorted.
+
 Loop from i = 1 to n-1.
 ……a) Pick element arr[i] and insert it into sorted sequence arr[0…i-1]
 
 sorted array <----- unsorted array
-
+*moving max elements in sorted array to right
+*inserting key on correct position on left
 */
 
 /* Function to sort an array using insertion sort*/
@@ -40,7 +45,7 @@ void insertionSort(int arr[], int n)
         /* Move elements of arr[0..i-1], that are
           greater than key, to one position ahead
           of their current position */
-        while (j >= 0 && arr[j] > key) {
+        while (j >= 0 && arr[j] > key) {        //exit on j = -1
             arr[j + 1] = arr[j];
             j = j - 1;
         } //This while loop have sub-iterations till condition becomes false.

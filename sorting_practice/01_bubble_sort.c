@@ -16,7 +16,11 @@ Radix Sort	      O(nk)
 
 
 /*
- * smaller	elements	“bubble”	to	the	top	of	the	list
+Bubble	sort	is	the	simplest	sorting	algorithm.	It	works	by	iterating	the	input	array	from	the	first
+element	to	the	last,	comparing	each	pair	of	elements	and	swapping	them	if	needed.	Bubble	sort
+continues	its	iterations	until	no	more	swaps	are	needed
+
+smaller	elements	“bubble”	to	the	top	of	the	list
  */
 
 // C program for implementation of Bubble sort

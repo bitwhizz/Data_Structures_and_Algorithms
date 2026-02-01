@@ -5,17 +5,14 @@
  *      Author: saifullab
  Algorithm	-->Time Complexity(Worst case)
  Selection Sort		O(n^2)
- Bubble Sort		    O(n^2)
- Insertion Sort	  O(n^2)
- Heap Sort		      O(n log(n))
- Quick Sort		    O(n^2)
- Merge Sort	      O(n log(n))
- Bucket Sort		    O(n^2)
- Radix Sort	      O(nk)	
  */
 
 /*comparision sorting--in place sorting
  *
+Selection sor works well for samll files. 
+it is used for sorting the files with very large values and small keys.
+This is because selection is made based on keys and swaps are made only when required.
+ 
  * compare and swap the minimum number in unsorted array
  * to first position of unsorted array
  *
@@ -46,6 +43,11 @@ void swap(int *xp, int *yp)
     *yp = temp;
 }
 
+/*
+1. Find the minimum value in the list
+2. Swap it with the values in the current position.
+3. Repeat this processes for all elements until the entire array is sorted.
+*/
 void SelectionSort(int A[],int n)
 {
 	int i,j,min;
