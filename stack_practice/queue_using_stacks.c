@@ -11,10 +11,10 @@ struct sNode
 };
 
 /* Function to push an item to stack*/
-void push(struct sNode** top_ref, int new_data);
+void push(struct sNode** head_ref, int new_data);
  
 /* Function to pop an item from stack*/
-int pop(struct sNode** top_ref);
+int pop(struct sNode** head_ref);
  
 /* structure of queue having two stacks */
 struct queue
@@ -57,7 +57,7 @@ int deQueue(struct queue *q)
 }
 
 /* Function to push an item to stack*/
-void push(struct sNode** top_ref, int new_data)
+void push(struct sNode** head_ref, int new_data)
 {
     /* allocate node */
     struct sNode* new_node = (struct sNode*) malloc(sizeof(struct sNode));
@@ -74,29 +74,29 @@ void push(struct sNode** top_ref, int new_data)
     new_node->data = new_data;
     
     /* link the old list off the new node */
-    new_node->next = (*top_ref);
+    new_node->next = (*head_ref);
     
     /* move the head to point to the new node */
-    (*top_ref) = new_node;
+    (*head_ref) = new_node;
 }
 
 /* Function to pop an item from stack*/
-int pop(struct sNode** top_ref)
+int pop(struct sNode** head_ref)
 {
     int res;
-    struct sNode* top;
+    struct sNode* temp;
 
     /*If stack is empty then error */
-    if (*top_ref == NULL) {
+    if (*head_ref == NULL) {
         printf("Stack underflow \n");
         getchar();
         exit(0);
     }
     else {
-        top = *top_ref;
-        res = top->data;
-        *top_ref = top->next;
-        free(top);
+        temp = *head_ref;
+        res = temp->data;
+        *head_ref = temp->next;
+        free(temp);
         return res;
     }
 }
