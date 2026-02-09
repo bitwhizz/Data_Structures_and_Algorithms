@@ -58,7 +58,7 @@ int hashcode(int key)
 int get_prime(int n)
 {
 	if (n % 2 == 0)
-        {
+    {
 		n++;
 	}
 	for (; !if_prime(n); n += 2);
@@ -71,7 +71,7 @@ int if_prime(int n)
 {
 	int i;
 	if ( n == 1  ||  n == 0)
-        {
+    {
 		return 0;
 	}
 	for (i = 2; i < n; i++)
