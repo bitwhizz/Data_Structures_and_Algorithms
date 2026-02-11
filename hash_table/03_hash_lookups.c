@@ -87,7 +87,7 @@ struct wordrec*  lookup(const char* str,int create)
 
   struct wordrec* curr=NULL;
 
-  /*TODO: write code to
+  /*DONE: write code to
   follow the linked list to find str
   if found return pointer*/
 
@@ -102,7 +102,7 @@ struct wordrec*  lookup(const char* str,int create)
   /*if not found and create specified*/
    if(create)
     {
-      /*TODO:write code to create new node
+      /*DONE:write code to create new node
       update linked list*/
 	   curr=(struct wordrec*)malloc(sizeof(struct wordrec));
 
@@ -123,7 +123,7 @@ void cleartable()
 {
   struct wordrec* wp=NULL,*p=NULL;
   int i=0;
-  /*TODO: write code to
+  /*DONE: write code to
     reclaim memory
   */
 

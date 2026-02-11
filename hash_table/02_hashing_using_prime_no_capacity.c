@@ -223,4 +223,7 @@ int main()
 
 	//getch();
 
+	free(array);
+	printf("Free the malloced memory\n");
+	return 0;
 }
