@@ -6,20 +6,13 @@
 
 DLR : process the current node data , process left subtree and then process right subtree.
 
+In	the	Non recursive	version,	a	stack	is	required	as	we	need	to	remember	the	current	node	so	that	after
+completing	the	left	subtree	we	can	go	to	the	right	subtree.
+To	simulate	the	same,	first	we	process the	 current	 node	 and	 before	 going	 to	 the	 left	 subtree,	
+we	 store	 the	 current	 node	 on	 stack.	 After
+completing	the	left	subtree	processing,	pop	the	element	and	go	to	its	right	subtree.
+Continue	this process	until	stack	is	nonempty.
 
-command to check the meamory leaks in heap allocations
-valgrind --leak-check=yes pre-orderTraversal
-
-Nodes of the tree would be visited in DLR order : 124p4p25p5p136p6p37p7
-==5072== 
-==5072== HEAP SUMMARY:
-==5072==     in use at exit: 0 bytes in 0 blocks
-==5072==   total heap usage: 15 allocs, 15 frees, 1,304 bytes allocated
-==5072== 
-==5072== All heap blocks were freed -- no leaks are possible
-==5072== 
-==5072== For counts of detected and suppressed errors, rerun with: -v
-==5072== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 */
 
 
@@ -272,4 +265,19 @@ tree node  rr: 2599050
 tree node  rrl: 25990b0 
 tree node  rrr: 25990d0 
 Nodes of the tree would be visited in DLR order : 1245367
+
+
+command to check the meamory leaks in heap allocations
+valgrind --leak-check=yes pre-orderTraversal
+
+Nodes of the tree would be visited in DLR order : 124p4p25p5p136p6p37p7
+==5072== 
+==5072== HEAP SUMMARY:
+==5072==     in use at exit: 0 bytes in 0 blocks
+==5072==   total heap usage: 15 allocs, 15 frees, 1,304 bytes allocated
+==5072== 
+==5072== All heap blocks were freed -- no leaks are possible
+==5072== 
+==5072== For counts of detected and suppressed errors, rerun with: -v
+==5072== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
 */

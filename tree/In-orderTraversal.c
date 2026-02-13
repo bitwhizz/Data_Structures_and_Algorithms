@@ -6,6 +6,10 @@
 
 LDR : process left subtree , process the current node data and then process right subtree.
 
+
+The	Non-recursive	version	of	Inorder	traversal	is	similar	to	Preorder.
+The	only	change	is,	instead of	processing	the	node	before	going	to	left	subtree,	
+process	it	after	popping	
 */
 
 

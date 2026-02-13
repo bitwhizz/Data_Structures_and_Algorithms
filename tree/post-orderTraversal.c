@@ -6,6 +6,11 @@
 
 LRD : process left subtree , process right subtree and then process the current node data.
 
+
+In	 preorder	 and	 inorder	 traversals,	 after	 popping	 the	 stack	 element	 we	 do	 not	 need	 to	 visit	 the
+same	 vertex	 again.	 But	 in	 postorder	 traversal,	 each	 node	 is	 visited	 twice.	 That	 means,	 after
+processing	the	left	subtree	we	will	visit	the	current	node	and	after	processing	the	right	subtree	we
+will	visit	the	same	current	node.	But	we	should	be	processing	the	node	during	the	second	visit.
 */
 
 
