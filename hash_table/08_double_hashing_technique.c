@@ -18,7 +18,7 @@
  * constant multiples with another hash function.
  *
  * Double hashing reduces clustering in a better way.
- * The increments for probing sequence are computed by using seconf hash function.
+ * The increments for probing sequence are computed by using second hash function.
  * 
  *  Double hashing can be done using :
     (hash1(key) + i * hash2(key)) % TABLE_SIZE
