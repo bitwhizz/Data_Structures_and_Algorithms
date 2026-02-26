@@ -23,7 +23,7 @@ Likewise perform successive merges until the array is comletely sorted.
 
 // Utility function to find a minimum of two numbers
 int min(int x, int y) {
-	return (x < y) ? x : y;
+	return y ^ ((x^y) & -(x<y));
 }
 
 // Merge two sorted subarrays `A[from…mid]` and `A[mid+1…to]`
