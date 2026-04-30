@@ -178,3 +178,25 @@ Miscellaneous
 ***(gdb) shell command args           execute shell command
 ***(gdb) source file        	        load gdb commands from file
 ***(gdb) quit        		             quit gdb
+
+
+When GDB stops at the foo call, the step (s) command will step into std library function. 
+While you can execute finish (fin) and then execute s again,it's time-consuming and distracting, 
+especially when dealing with complex argument expressions. 
+
+You can also ask GDB to ignore certain functions while stepping with the skip command
+
+for skipping all the standard library files use below cmd
+skip -gfi /usr/include/ 
+
+skip delete -- Delete skip entries
+skip disable -- Disable skip entries
+skip enable -- Enable skip entries
+skip file -- Ignore a file while stepping
+skip function -- Ignore a function while stepping
+info skip
+
+for Profiling the program:
+gcc -g -pg -o0 circular_linkedlist.c -o exe
+./exe
+gprof exe > profile.txt
