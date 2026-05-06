@@ -57,10 +57,17 @@ int hashcode(int key)
 /* it returns prime number just greater than array capacity */
 int get_prime(int n)
 {
+	/*
+		The first if statement checks if n is even (n % 2 == 0).
+		If it is, it increments it to the next odd number.
+		Why? Because except for the number 2, all prime numbers are odd. 
+		This immediately cuts the search work in half.
+	*/
 	if (n % 2 == 0)
     {
 		n++;
 	}
+	//Keep going as long as n is not prime.
 	for (; !if_prime(n); n += 2);
 
 	return n;
