@@ -24,11 +24,22 @@ void push(struct NODE** head_ref, int new_data)
 
 void pop(struct NODE** head_ref)
 {
-	struct NODE *temp=*head_ref;
+    int res;
+    struct NODE* temp;
 
-	*head_ref=temp->next;
-
-	free(temp);
+    /*If stack is empty then error */
+    if (*head_ref == NULL) {
+        printf("Stack underflow \n");
+        getchar();
+        exit(0);
+    }
+    else {
+        temp = *head_ref;
+        res = temp->data;
+        *head_ref = temp->next;
+        free(temp);
+        return res;
+    }
 }
 
 int peek(struct NODE* head_ref){
