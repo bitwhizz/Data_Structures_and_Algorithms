@@ -12,7 +12,7 @@ The stack could help in approaching this problem. This will be a two-step proces
 #include<stdbool.h>
 
 struct Qnode{
-	int key;
+	int data;
 	struct Qnode* next;
 };
 
@@ -20,9 +20,9 @@ struct Queue{
 	struct Qnode* front,*rear;
 };
 
-struct Qnode* new_node(int key){
+struct Qnode* new_node(int data){
     struct Qnode *temp = (struct Qnode*)malloc(sizeof(struct Qnode));
-    temp->key = key;
+    temp->data = data;
     temp->next = NULL;
     return temp;
 }
@@ -33,9 +33,9 @@ struct Queue *createQueue(){
 	return q;
 }
 
-void enqueue(struct Queue* q,int key){
+void enqueue(struct Queue* q,int data){
 
-	struct Qnode* temp=new_node(key);
+	struct Qnode* temp=new_node(data);
 
 	if(q->rear==NULL)
 	{
@@ -61,38 +61,33 @@ struct Qnode* dequeue(struct Queue*q){
 	return temp;
 }
 
-struct NODE{
-	int data;
-	struct NODE* next;
-};
-
 
 /* Given a reference (pointer to pointer) to the head of a list and
-   an int, inserts a new node on the front of the list. */
-void push(struct NODE** head_ref, int new_data)
+   an int, inserts a new Qnode on the front of the list. */
+void push(struct Qnode** head_ref, int new_data)
 {
-    struct NODE* new_node = (struct NODE*) malloc(sizeof(struct NODE));
+    struct Qnode* new_node = (struct Qnode*) malloc(sizeof(struct Qnode));
 
 	new_node->data=new_data;
 
-	//assigning the address of the previous head to new node
+	//assigning the address of the previous head to new Qnode
 	new_node->next=(*head_ref);
 
-	//move the head to point to the new node
+	//move the head to point to the new Qnode
 	(*head_ref)=new_node;
 }
 
-void pop(struct NODE** head_ref)
+void pop(struct Qnode** head_ref)
 {
-	struct NODE *temp=*head_ref;
+	struct Qnode *temp=*head_ref;
 
 	*head_ref=temp->next;
 
 	free(temp);
 }
 
-int peek(struct NODE* head_ref){
-	struct NODE *temp=head_ref;
+int peek(struct Qnode* head_ref){
+	struct Qnode *temp=head_ref;
 
 	if(temp!=NULL)
 		return temp->data;
@@ -107,21 +102,21 @@ void Print(struct Queue* q)
     do{
          n = dequeue(q);
         if (n != NULL)
-          printf("Dequeued item is %d\n", n->key);
+          printf("Dequeued item is %d\n", n->data);
     }while(n != NULL);
 }
 
 // Function to reverse the queue
 void reverseQueue(struct Queue* q)
 {
-    struct NODE *top=NULL;
+    struct Qnode *top=NULL;
     struct Qnode *n =NULL;
 
     do{
           n = dequeue(q);
       if (n != NULL){
-        printf("Dequeued item is %d\n", n->key);
-        push(&top,n->key);
+        printf("Dequeued item is %d\n", n->data);
+        push(&top,n->data);
       }
     }while (n!=NULL);
 

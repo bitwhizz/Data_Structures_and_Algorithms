@@ -10,7 +10,7 @@
 #include<stdbool.h>
 
 struct Qnode{
-	int key;
+	int data;
 	struct Qnode* next;
 };
 
@@ -18,9 +18,9 @@ struct Queue{
 	struct Qnode* front,*rear;
 };
 
-struct Qnode* new_node(int key){
+struct Qnode* new_node(int data){
     struct Qnode *temp = (struct Qnode*)malloc(sizeof(struct Qnode));
-    temp->key = key;
+    temp->data = data;
     temp->next = NULL;
     return temp;
 }
@@ -31,9 +31,9 @@ struct Queue *createQueue(){
 	return q;
 }
 
-void enqueue(struct Queue* q,int key){
+void enqueue(struct Queue* q,int data){
 
-	struct Qnode* temp=new_node(key);
+	struct Qnode* temp=new_node(data);
 
 	if(q->rear==NULL)
 	{
@@ -72,6 +72,6 @@ int main()
     struct Qnode *n = dequeue(q);
 
     if (n != NULL)
-      printf("Dequeued item is %d", n->key);
+      printf("Dequeued item is %d", n->data);
     return 0;
 }
