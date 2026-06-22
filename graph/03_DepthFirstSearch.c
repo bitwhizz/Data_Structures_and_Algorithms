@@ -11,21 +11,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Structure for a node in the adjacency list
+// Structure for an adjacency list node
 struct AdjListNode {
-    int dest;
+    int vertex;
     struct AdjListNode* next;
 };
 
-// Structure for the adjacency list itself
-struct AdjList {
-    struct AdjListNode *head;
-};
-
-// Structure for the graph
+// Structure for a graph
 struct Graph {
-    int V; // Number of vertices
-    struct AdjList* array;
+    int num_vertex; // Number of vertices
+    struct AdjListNode** adjlist;
 };
 
 // Structure for a stack node
@@ -34,36 +29,41 @@ struct StackNode {
     struct StackNode* next;
 };
 
+
 // Function to create a new adjacency list node
-struct AdjListNode* newAdjListNode(int dest) {
-    struct AdjListNode* newNode = (struct AdjListNode*) malloc(sizeof(struct AdjListNode));
-    newNode->dest = dest;
+struct AdjListNode* newAdjListNode(int vertex) {
+    struct AdjListNode* newNode = (struct AdjListNode*)malloc(sizeof(struct AdjListNode));
+    newNode->vertex = vertex;
     newNode->next = NULL;
     return newNode;
 }
 
-// Function to create a graph with V vertices
-struct Graph* createGraph(int V) {
-    struct Graph* graph = (struct Graph*) malloc(sizeof(struct Graph));
-    graph->V = V;
-    graph->array = (struct AdjList*) malloc(V * sizeof(struct AdjList));
-    for (int i = 0; i < V; ++i) {
-        graph->array[i].head = NULL;
+// Function to create a graph of V vertices
+struct Graph* createGraph(int num_vertex) {
+    struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
+    graph->num_vertex = num_vertex;
+
+    // Create an array of adjacency lists. Size num_vertex for num_vertex vertices
+    graph->adjlist = malloc(num_vertex * sizeof(struct AdjListNode*));
+
+    // Initialize each adjacency list as empty by making head as NULL
+    for (int i = 0; i < num_vertex; ++i) {
+        graph->adjlist[i] = NULL;
     }
     return graph;
 }
 
 // Function to add an edge to an undirected graph
 void addEdge(struct Graph* graph, int src, int dest) {
-    // Add edge from src to dest
+    // Add an edge from src to dest
     struct AdjListNode* newNode = newAdjListNode(dest);
-    newNode->next = graph->array[src].head;
-    graph->array[src].head = newNode;
+    newNode->next = graph->adjlist[src];
+    graph->adjlist[src] = newNode;
 
-    // Add edge from dest to src (for undirected graph)
+    // Since the graph is undirected, add an edge from dest to src also
     newNode = newAdjListNode(src);
-    newNode->next = graph->array[dest].head;
-    graph->array[dest].head = newNode;
+    newNode->next = graph->adjlist[dest];
+    graph->adjlist[dest] = newNode;
 }
 
 // Stack operations
@@ -96,7 +96,7 @@ int pop(struct StackNode** root) {
 // Iterative DFS function
 void iterativeDFS(struct Graph* graph, int startNode) {
     struct StackNode* stack = NULL;
-    int* visited = (int*) calloc(graph->V, sizeof(int)); // Initialize all to 0 (not visited)
+    int* visited = (int*) calloc(graph->num_vertex, sizeof(int)); // Initialize all to 0 (not visited)
 
     push(&stack, startNode);
 
@@ -108,10 +108,10 @@ void iterativeDFS(struct Graph* graph, int startNode) {
             printf("%d ", u);
 
             // Push all unvisited adjacent vertices to the stack
-            struct AdjListNode* temp = graph->array[u].head;
+            struct AdjListNode* temp = graph->adjlist[u];
             while (temp != NULL) {
-                if (!visited[temp->dest]) {
-                    push(&stack, temp->dest);
+                if (!visited[temp->vertex]) {
+                    push(&stack, temp->vertex);
                 }
                 temp = temp->next;
             }
@@ -135,3 +135,8 @@ int main() {
 
     return 0;
 }
+
+
+/*
+Iterative DFS traversal starting from vertex 0: 0 1 3 4 2 
+*/

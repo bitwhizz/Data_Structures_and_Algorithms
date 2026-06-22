@@ -27,21 +27,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Structure for a node in the adjacency list
+// Structure for an adjacency list node
 struct AdjListNode {
-    int dest;
+    int vertex;
     struct AdjListNode* next;
 };
 
-// Structure for an adjacency list
-struct AdjList {
-    struct AdjListNode *head;
-};
-
-// Structure for the graph
+// Structure for a graph
 struct Graph {
-    int V; // Number of vertices
-    struct AdjList* array;
+    int num_vertex; // Number of vertices
+    struct AdjListNode** adjlist;
 };
 
 // Structure for a queue node
@@ -55,35 +50,41 @@ struct Queue {
     struct QNode *front, *rear;
 };
 
+
 // Function to create a new adjacency list node
-struct AdjListNode* newAdjListNode(int dest) {
-    struct AdjListNode* newNode = (struct AdjListNode*) malloc(sizeof(struct AdjListNode));
-    newNode->dest = dest;
+struct AdjListNode* newAdjListNode(int vertex) {
+    struct AdjListNode* newNode = (struct AdjListNode*)malloc(sizeof(struct AdjListNode));
+    newNode->vertex = vertex;
     newNode->next = NULL;
     return newNode;
 }
 
-// Function to create a graph with V vertices
-struct Graph* createGraph(int V) {
-    struct Graph* graph = (struct Graph*) malloc(sizeof(struct Graph));
-    graph->V = V;
-    graph->array = (struct AdjList*) malloc(V * sizeof(struct AdjList));
-    for (int i = 0; i < V; ++i)
-        graph->array[i].head = NULL;
+// Function to create a graph of V vertices
+struct Graph* createGraph(int num_vertex) {
+    struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
+    graph->num_vertex = num_vertex;
+
+    // Create an array of adjacency lists. Size num_vertex for num_vertex vertices
+    graph->adjlist = malloc(num_vertex * sizeof(struct AdjListNode*));
+
+    // Initialize each adjacency list as empty by making head as NULL
+    for (int i = 0; i < num_vertex; ++i) {
+        graph->adjlist[i] = NULL;
+    }
     return graph;
 }
 
 // Function to add an edge to an undirected graph
 void addEdge(struct Graph* graph, int src, int dest) {
-    // Add edge from src to dest
+    // Add an edge from src to dest
     struct AdjListNode* newNode = newAdjListNode(dest);
-    newNode->next = graph->array[src].head;
-    graph->array[src].head = newNode;
+    newNode->next = graph->adjlist[src];
+    graph->adjlist[src] = newNode;
 
-    // Add edge from dest to src (for undirected graph)
+    // Since the graph is undirected, add an edge from dest to src also
     newNode = newAdjListNode(src);
-    newNode->next = graph->array[dest].head;
-    graph->array[dest].head = newNode;
+    newNode->next = graph->adjlist[dest];
+    graph->adjlist[dest] = newNode;
 }
 
 // Function to create a new queue node
@@ -134,8 +135,8 @@ int isEmpty(struct Queue* q) {
 
 // BFS traversal function
 void BFS(struct Graph* graph, int startVertex) {
-    int* visited = (int*) malloc(graph->V * sizeof(int));
-    for (int i = 0; i < graph->V; i++)
+    int* visited = (int*) malloc(graph->num_vertex * sizeof(int));
+    for (int i = 0; i < graph->num_vertex; i++)
         visited[i] = 0; // Initialize all vertices as not visited
 
     struct Queue* q = createQueue();
@@ -147,9 +148,9 @@ void BFS(struct Graph* graph, int startVertex) {
         int currentVertex = dequeue(q);
         printf("%d ", currentVertex);
 
-        struct AdjListNode* temp = graph->array[currentVertex].head;
+        struct AdjListNode* temp = graph->adjlist[currentVertex];
         while (temp) {
-            int adjVertex = temp->dest;
+            int adjVertex = temp->vertex;
             if (visited[adjVertex] == 0) {
                 visited[adjVertex] = 1;
                 enqueue(q, adjVertex);
@@ -177,3 +178,8 @@ int main() {
 
     return 0;
 }
+
+/*
+BFS traversal starting from vertex 0: 
+0 2 1 4 3 
+*/
