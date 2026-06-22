@@ -18,40 +18,35 @@
 
 // Structure for an adjacency list node
 struct AdjListNode {
-    int dest;
+    int vertex;
     struct AdjListNode* next;
-};
-
-// Structure for an adjacency list
-struct AdjList {
-    struct AdjListNode* head;
 };
 
 // Structure for a graph
 struct Graph {
-    int V; // Number of vertices
-    struct AdjList* array;
+    int num_vertex; // Number of vertices
+    struct AdjListNode** adjlist;
 };
 
 // Function to create a new adjacency list node
-struct AdjListNode* newAdjListNode(int dest) {
+struct AdjListNode* newAdjListNode(int vertex) {
     struct AdjListNode* newNode = (struct AdjListNode*)malloc(sizeof(struct AdjListNode));
-    newNode->dest = dest;
+    newNode->vertex = vertex;
     newNode->next = NULL;
     return newNode;
 }
 
 // Function to create a graph of V vertices
-struct Graph* createGraph(int V) {
+struct Graph* createGraph(int num_vertex) {
     struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
-    graph->V = V;
+    graph->num_vertex = num_vertex;
 
-    // Create an array of adjacency lists. Size V for V vertices
-    graph->array = (struct AdjList*)malloc(V * sizeof(struct AdjList));
+    // Create an array of adjacency lists. Size num_vertex for num_vertex vertices
+    graph->adjlist = malloc(num_vertex * sizeof(struct AdjListNode*));
 
     // Initialize each adjacency list as empty by making head as NULL
-    for (int i = 0; i < V; ++i) {
-        graph->array[i].head = NULL;
+    for (int i = 0; i < num_vertex; ++i) {
+        graph->adjlist[i] = NULL;
     }
     return graph;
 }
@@ -60,22 +55,22 @@ struct Graph* createGraph(int V) {
 void addEdge(struct Graph* graph, int src, int dest) {
     // Add an edge from src to dest
     struct AdjListNode* newNode = newAdjListNode(dest);
-    newNode->next = graph->array[src].head;
-    graph->array[src].head = newNode;
+    newNode->next = graph->adjlist[src];
+    graph->adjlist[src] = newNode;
 
     // Since the graph is undirected, add an edge from dest to src also
     newNode = newAdjListNode(src);
-    newNode->next = graph->array[dest].head;
-    graph->array[dest].head = newNode;
+    newNode->next = graph->adjlist[dest];
+    graph->adjlist[dest] = newNode;
 }
 
 // Function to print the adjacency list representation of the graph
 void printGraph(struct Graph* graph) {
-    for (int v = 0; v < graph->V; ++v) {
-        struct AdjListNode* pCrawl = graph->array[v].head;
+    for (int v = 0; v < graph->num_vertex; ++v) {
+        struct AdjListNode* pCrawl = graph->adjlist[v];
         printf("\n Adjacency list of vertex %d\n head ", v);
         while (pCrawl) {
-            printf("-> %d", pCrawl->dest);
+            printf("-> %d", pCrawl->vertex);
             pCrawl = pCrawl->next;
         }
         printf("\n");
@@ -103,7 +98,7 @@ int main() {
 
     // Free allocated memory (important for preventing memory leaks)
     for (int i = 0; i < V; ++i) {
-        struct AdjListNode* current = graph->array[i].head;
+        struct AdjListNode* current = graph->adjlist[i];
         struct AdjListNode* next;
         while (current != NULL) {
             next = current->next;
@@ -111,8 +106,29 @@ int main() {
             current = next;
         }
     }
-    free(graph->array);
+    free(graph->adjlist);
     free(graph);
 
     return 0;
 }
+
+
+/*
+  Adjacency list of vertex 0
+ head -> 4-> 1
+
+ Adjacency list of vertex 1
+ head -> 4-> 3-> 2-> 0
+
+ Adjacency list of vertex 2
+ head -> 5-> 3-> 1
+
+ Adjacency list of vertex 3
+ head -> 4-> 2-> 1
+
+ Adjacency list of vertex 4
+ head -> 5-> 3-> 1-> 0
+
+ Adjacency list of vertex 5
+ head -> 2-> 4
+*/
