@@ -101,14 +101,14 @@ void iterativeDFS(struct Graph* graph, int startNode) {
     push(&stack, startNode);
 
     while (!isEmpty(stack)) {
-        int u = pop(&stack);
+        int currentvertex = pop(&stack);
 
-        if (!visited[u]) {
-            visited[u] = 1; // Mark as visited
-            printf("%d ", u);
+        if (!visited[currentvertex]) {
+            visited[currentvertex] = 1; // Mark as visited
+            printf("%d ", currentvertex);
 
             // Push all unvisited adjacent vertices to the stack
-            struct AdjListNode* temp = graph->adjlist[u];
+            struct AdjListNode* temp = graph->adjlist[currentvertex];
             while (temp != NULL) {
                 if (!visited[temp->vertex]) {
                     push(&stack, temp->vertex);

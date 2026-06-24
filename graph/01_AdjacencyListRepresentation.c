@@ -36,7 +36,7 @@ struct AdjListNode* newAdjListNode(int vertex) {
     return newNode;
 }
 
-// Function to create a graph of V vertices
+// Function to create a graph of num_vertex vertices
 struct Graph* createGraph(int num_vertex) {
     struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
     graph->num_vertex = num_vertex;
