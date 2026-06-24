@@ -27,8 +27,7 @@ struct Stack
 struct Graph *createGraph(int);
 void addEdge(struct Graph *, int, int);
 void printGraph(struct Graph *);
-void topologicalSortHelper(int, struct Graph *, struct Stack *);
-void topologicalSort(struct Graph *);
+void topologicalSortIterative(struct Graph *);
 struct Stack *createStack();
 void push(struct Stack *, int);
 int pop(struct Stack *);
@@ -50,7 +49,7 @@ int main()
         addEdge(graph, src, dst);
     }
     printf("One topological sort order is:\n");
-    topologicalSort(graph);
+    topologicalSortIterative(graph);
     printf("\n");
 
     // Uncomment below part to get a ready-made example
@@ -65,40 +64,76 @@ int main()
     return 0;
 }
 
-void topologicalSortHelper(int vertex, struct Graph *graph, struct Stack *stack)
-{
-    graph->visited[vertex] = 1;
-    struct node *adjList = graph->adjLists[vertex];
-    struct node *temp = adjList;
-    // First add all dependents (that is, children) to stack
-    while (temp != NULL)
-    {
-        int connectedVertex = temp->vertex;
-        if (graph->visited[connectedVertex] == 0)
-        {
-            topologicalSortHelper(connectedVertex, graph, stack);
-        }
-        temp = temp->next;
-    }
-    // and then add itself
-    push(stack, vertex);
-}
+// Assuming standard definitions for Node, Graph, and Stack are present
 
-// Recursive topologial sort approach
-void topologicalSort(struct Graph *graph)
+void topologicalSortIterative(struct Graph *graph)
 {
-    struct Stack *stack = createStack();
-    int i = 0;
+    // The final output stack (just like in your recursive version)
+    struct Stack *outputStack = createStack();
+    
+    // A temporary stack to manage our iterative DFS traversal
+    struct Stack *traversalStack = createStack();
+
+    int i;
     for (i = 0; i < graph->numVertices; i++)
     {
-        // Execute topological sort on all elements
         if (graph->visited[i] == 0)
         {
-            topologicalSortHelper(i, graph, stack);
+            // Push the starting vertex of a component
+            push(traversalStack, i);
+
+            while (traversalStack->top != -1)
+            {
+                // Peek the top element without popping it yet
+                int currentVertex = traversalStack->arr[traversalStack->top];
+
+                // Case 1: First time seeing this node
+                if (graph->visited[currentVertex] == 0)
+                {
+                    graph->visited[currentVertex] = 1; // Mark as discovering
+
+                    // Push all unvisited neighbors onto the traversal stack
+                    struct node *temp = graph->adjLists[currentVertex];
+                    while (temp != NULL)
+                    {
+                        int connectedVertex = temp->vertex;
+                        if (graph->visited[connectedVertex] == 0)
+                        {
+                            push(traversalStack, connectedVertex);
+                        }
+                        temp = temp->next;
+                    }
+                }
+                // Case 2: We've already processed its neighbors (or it had none)
+                else 
+                {
+                    // Pop it from the traversal stack since it's fully explored
+                    pop(traversalStack);
+                    
+                    // If it hasn't been finalized into the output yet, do it now
+                    // We check a second state or handle duplication protection
+                    // In a clean 2-pass/state logic, we ensure it's pushed to output exactly once:
+                    if (graph->visited[currentVertex] == 1) 
+                    {
+                        graph->visited[currentVertex] = 2; // Mark as completely finalized
+                        push(outputStack, currentVertex);
+                    }
+                }
+            }
         }
     }
-    while (stack->top != -1) printf("%d ", pop(stack));
+
+    // Print the contents of the output stack
+    while (outputStack->top != -1) 
+    {
+        printf("%d ", pop(outputStack));
+    }
+    
+    // Clean up local stacks if necessary
+    // freeStack(traversalStack);
+    // freeStack(outputStack);
 }
+
 // Allocate memory for a node
 struct node *createNode(int v)
 {
@@ -168,3 +203,31 @@ int pop(struct Stack *stack)
     else
         return stack->arr[stack->top--];
 }
+
+
+/*
+Enter the number of vertices
+6
+Enter the number of edges
+6
+Edge 1 
+Enter source: 0
+Enter destination: 1
+Edge 2 
+Enter source: 2
+Enter destination: 3
+Edge 3 
+Enter source: 4
+Enter destination: 5
+Edge 4 
+Enter source: 2
+Enter destination: 5
+Edge 5 
+Enter source: 1
+Enter destination: 4
+Edge 6 
+Enter source: 3
+Enter destination: 4
+One topological sort order is:
+2 3 0 1 4 5 
+*/
