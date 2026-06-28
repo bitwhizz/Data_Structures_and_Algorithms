@@ -1,7 +1,7 @@
 /*
- * find_Height_of_Binary_Tree.c
+ * Five an algorithm for inserting an element into binary tree
  *
- *  Created on: 28 Octuber 2026
+ *  Created on: 28 june 2026
  *      Author: saif
  * 
  * Since the given tree is a binary tree , wea can insert the element whereever we want.

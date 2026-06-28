@@ -1,19 +1,22 @@
 /*
-  *  Give an algorithm for finding he maximum element in binary tree.
+ * Give an algorithm for printing the level order data in reverse order.
  *
- *  Created on: 28 june 2026
+ *  Created on: 28 June 2026
  *      Author: saif
  * 
- *  Using level order traversal. This is similar to BFS of the Graph algorithms.
- *  one Simple way of solving this problem is to find the maximum element in left subtree ,
- *  find the maximum element in right subtree, compare them with the root data and 
- *  select the one which is giving maximum value.
+ *  
+ * Visit the root
+ * 
+ * while traversiing level (keep all the elements at level +1 in queue)
+ * 
+ * Go to next level and visit all the nodes at that level.
+ * 
+ * Repeat this until all levels are completed
  */
 
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
-#include <limits.h>
 
 
 struct BinaryTreeNode{
@@ -30,6 +33,11 @@ struct Qnode{
 
 struct Queue{
 	struct Qnode* front,*rear;
+};
+
+struct StackNode{
+    struct BinaryTreeNode* treeNode;
+	  struct StackNode* next;
 };
 
 /* createnode() allocates a new node with the given data and NULL left and
@@ -114,24 +122,88 @@ void DeleteQueue(struct Queue* q)
     free(q);
 }
 
-int FindMaxUsingLevelOrder(struct BinaryTreeNode *root)
+struct StackNode* createStackNode(struct BinaryTreeNode* treeNode)
 {
-    int max = INT_MIN;
+  struct StackNode* newStackNode = (struct StackNode*)malloc(sizeof(struct StackNode));
+
+  if(newStackNode == NULL)
+  {
+    perror("Memory allocation failed");
+    exit(EXIT_FAILURE);
+  }
+
+  newStackNode->treeNode = treeNode;
+  newStackNode->next = NULL;
+  return newStackNode;
+}
+
+/* Given a reference (pointer to pointer) to the head of a list and
+   an int, inserts a new node on the front of the list. */
+void push(struct StackNode** head_ref, struct BinaryTreeNode* treeNode)
+{
+    struct StackNode* new_node = createStackNode(treeNode);
+
+	//assigning the address of the previous head to new node
+	new_node->next=(*head_ref);
+
+	//move the head to point to the new node
+	(*head_ref) = new_node;
+}
+
+int isEmptystack(struct StackNode* head_ref)
+{
+  return (head_ref == NULL);
+}
+
+struct BinaryTreeNode* pop(struct StackNode** head_ref){
+
+  if(isEmptystack(*head_ref))
+  {
+    return NULL;
+  }
+
+  struct StackNode *temp = *head_ref;
+  struct BinaryTreeNode* poppedNode = temp->treeNode;
+
+  *head_ref = (*head_ref)->next;
+  free(temp);
+
+  return poppedNode;
+}
+
+
+void levelOrderTraversalInReverse(struct BinaryTreeNode *root)
+{
+    if(root == NULL){
+        return;
+    }
+
+    printf("Nodes of the tree would be visited in Level order : ");
+
     struct Queue *q = createQueue();
+    struct StackNode *stack = NULL;
     enqueue(q,root);
 
-    while(!isEmptyQueue(q)){
+    while(!isEmptyQueue(q))
+    {
         struct Qnode *current = dequeue(q);
-        //largest ot hte three values
-        if(max < current->treeNode->data)
-            max = current->treeNode->data;
-        if(current->treeNode->left)
+
+        if(current->treeNode->left != NULL){
             enqueue(q,current->treeNode->left);
-        if(current->treeNode->right)
+        }
+
+        if(current->treeNode->right != NULL){
             enqueue(q,current->treeNode->right);
+        }
+        push(&stack,current->treeNode);
     }
+    while(!isEmptystack(stack))
+    {
+        printf("%d",pop(&stack)->data);
+    }
+    printf("\n");
+    //Free the queue memory
     DeleteQueue(q);
-    return max;
 }
 
 int main()
@@ -171,7 +243,7 @@ NULL NULL
   root->left->right  = createnode(5);
   root->right->left  = createnode(6);
   root->right->right = createnode(7);
-  root->left->left->left  = createnode(8);   //testing left subtree for tree height
+
 
 
   /* 4 becomes left child of 2
@@ -190,11 +262,8 @@ NULL NULL
   printf("tree node  rr: %x \n",root->right);
   printf("tree node  rrl: %x \n",root->right->left);
   printf("tree node  rrr: %x \n",root->right->right);
-  printf("tree node  rrr: %x \n",root->left->left->left);
-  printf("tree node  rlll: %x \n",root->left->left->left);
-  
-  root->left->left->left->left= NULL;
-  //root->left->left->left= NULL;
+
+  root->left->left->left = NULL;
   root->left->left->right = NULL;
   root->left->right->left  = NULL;
   root->left->right->right  = NULL;
@@ -203,9 +272,7 @@ NULL NULL
   root->right->right->left = NULL;
   root->right->right->right = NULL;
 
-
-   printf("Maximum element in binary tree would be  :  %d \n", FindMaxUsingLevelOrder(root));
-
+  levelOrderTraversalInReverse(root);
 
   //getchar();
 
@@ -220,15 +287,15 @@ NULL NULL
   return 0;
 }
 
+
 /*
-tree node  r: 103f010 
-tree node  rl: 103f030 
-tree node  rll: 103f070 
-tree node  rlr: 103f090 
-tree node  rr: 103f050 
-tree node  rrl: 103f0b0 
-tree node  rrr: 103f0d0 
-tree node  rrr: 103f0f0 
-tree node  rlll: 103f0f0 
-Maximum element in binary tree would be  :  8 
+tree node  r: 1bc6010 
+tree node  rl: 1bc6030 
+tree node  rll: 1bc6070 
+tree node  rlr: 1bc6090 
+tree node  rr: 1bc6050 
+tree node  rrl: 1bc60b0 
+tree node  rrr: 1bc60d0 
+Nodes of the tree would be visited in order : 1234567
+
 */
