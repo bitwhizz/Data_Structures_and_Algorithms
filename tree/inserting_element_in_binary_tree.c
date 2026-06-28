@@ -238,14 +238,15 @@ NULL NULL
 }
 
 /*
-tree node  r: 103f010 
-tree node  rl: 103f030 
-tree node  rll: 103f070 
-tree node  rlr: 103f090 
-tree node  rr: 103f050 
-tree node  rrl: 103f0b0 
-tree node  rrr: 103f0d0 
-tree node  rrr: 103f0f0 
-tree node  rlll: 103f0f0 
-Maximum element in binary tree would be  :  8 
+tree node  r: fe5010 
+tree node  rl: fe5030 
+tree node  rll: fe5070 
+tree node  rlr: fe5090 
+tree node  rr: fe5050 
+tree node  rrl: fe50b0 
+tree node  rrr: fe50d0 
+tree node  rrr: fe50f0 
+tree node  rlll: fe50f0 
+previous node: fe5070 , new node on right subtree: fe6120
+Inserting element in binary tree would be  :  9 
 */
