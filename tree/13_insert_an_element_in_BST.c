@@ -160,6 +160,8 @@ struct BinarySearchTreeNode* InsertInBST(struct BinarySearchTreeNode* root, int 
     return root;
 }
 
+
+/*************************for verification only **********************************/
 struct StackNode{
     struct BinarySearchTreeNode* treeNode;
 	  struct StackNode* next;
@@ -246,6 +248,10 @@ void InOrderNonRecursive(struct BinarySearchTreeNode *root)
   printf("\n");
   
 }
+
+
+/*****************************************************************************************/
+
 
 int main()
 {
