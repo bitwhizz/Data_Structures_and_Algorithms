@@ -2,15 +2,20 @@
  *  Created on: 30 june 2026
  *      Author: saif
  * 
-To insert data into binary search tree , first we need to find the location for that element.
-we can find the location of insertion by the following the same mechanism s that of find operation.
-while finding the location , if the data is already there we can simply neglect and come out.
-Otherwise , insert the data at last location on the path traversed.
+Delete a node from a binary Search tree.
 
-Iterative approach :
+Deletion in BST involves three cases:
 
-* Use a loop to find the correct position iteratively.
-* insert the new node when a null position is found.
+case 1 . Node with no childeren : Simply remove the node.
+
+case 2. Node with one Child. Remove the node and replace it with its child.
+
+case 3. Node with two children : Find the in order successor (smallest node in the right subtree) or
+        in order predecessor (largest node in the left subtree), replace the node with it, and delete the successor / predecessor.
+
+Constraints : 
+    * Ensure the tree is correctly restructured if the root node is deleted.
+    * Make sure the tree remains a valid BST after deletion.
 
 */
 
@@ -25,6 +30,7 @@ struct BinarySearchTreeNode{
     struct BinarySearchTreeNode *left;
     struct BinarySearchTreeNode *right;
 };
+
 
 /* createnode() allocates a new node with the given data and NULL left and
    right pointers. */
@@ -50,52 +56,71 @@ struct BinarySearchTreeNode* createnode(int data)
   return(newNode);
 }
 
-// Returns the (potentially updated) root of the BST
-struct BinarySearchTreeNode* InsertInBST(struct BinarySearchTreeNode* root, int data) 
+struct BinarySearchTreeNode* deleteNode(struct BinarySearchTreeNode* root, int value)
 {
-    // 1. Create the new node up front
-    struct BinarySearchTreeNode* newNode = (struct BinarySearchTreeNode*)malloc(sizeof(struct BinarySearchTreeNode));
-    if (newNode == NULL) {
-        printf("Memory Error\n");
-        return root; // Return unchanged tree if malloc fails
-    }
-    newNode->data = data;
-    newNode->left = newNode->right = NULL;
-
-    // 2. Handle the empty tree case
-    if (root == NULL) {
-        return newNode; 
-    }
-
-    // 3. Traverse the tree with two pointers
     struct BinarySearchTreeNode* current = root;
     struct BinarySearchTreeNode* parent = NULL;
 
-    while (current != NULL) {
-        parent = current; // Keep track of the current node before moving down
-        
-        if (data < current->data) {
-            current = current->left;
-        } else if (data > current->data) {
-            current = current->right;
-        } else {
-            // Duplicate data found; handle according to your requirements
-            free(newNode); // Deallocate since we aren't inserting it
-            return root; 
-        }
+    //Step 1: Search for the node to be deleted and its parent
+    while(current != NULL && current->data != value)
+    {
+      parent = current;
+      if(value < current->data){
+        current = current->left;
+      }
+      else{
+        current = current->right;
+      }
     }
 
-    // 4. Link the parent to the new node
-    if (data < parent->data) {
-        parent->left = newNode;
-    } else {
-        parent->right = newNode;
+    //If the value wasn't found in the tree , return unchanged root
+    if(current == NULL){
+      return root;
     }
 
+    //Step 2: Handle case 3 first(node has two children)
+    if(current->left != NULL && current->right != NULL)
+    {
+      //Find the in order successor and its parent
+      struct BinarySearchTreeNode* successorParent = current;
+      struct BinarySearchTreeNode* successor = current->right;
+
+      while(successor->left != NULL)
+      {
+        successorParent = successor;
+        successor = successor->left;
+      }
+
+      //copy successor's data to the current node
+      current->data = successor->data;
+
+      //Now shift out targets : we actually need to deleate the successor node
+      parent = successorParent;
+      current = successor;
+    }
+
+    //Step 3 : Handle case 1 and case 2 (Node has 0 or 1 child)
+    struct BinarySearchTreeNode* child = (current->left != NULL) ? current->left : current->right;
+
+    //If the node to be dleted is the root node itself
+    if(parent == NULL)
+    {
+      free(current);
+      return child; // The child becomes the new root
+    }
+
+    //Link the parent node directly to the child node
+    if(current == parent->left)
+    {
+      parent->left = child;
+    }
+    else{
+      parent->right = child;
+    }
+
+    free(current);
     return root;
 }
-
-
 /*************************for verification only **********************************/
 struct StackNode{
     struct BinarySearchTreeNode* treeNode;
@@ -226,9 +251,9 @@ int main()
   root->right->left =  NULL;
   root->right->right = NULL;
 
-    InsertInBST(root,8);
+    deleteNode(root,4);
 
-    printf("Inserted element in binary search tree\n");
+    printf("deleted element in binary search tree\n");
   //getchar();
 
     InOrderNonRecursive(root);
@@ -244,29 +269,26 @@ int main()
 
 
 /*
-tree node  r: 740010 -> 7
-tree node  rl: 740030 -> 4 
-tree node  rll: 740070 -> 2
-tree node  rlr: 740090 -> 5
-tree node  rr: 740050 -> 9
-Inserted element in binary search tree
+tree node  r: 90f010 -> 7
+tree node  rl: 90f030 -> 4 
+tree node  rll: 90f070 -> 2
+tree node  rlr: 90f090 -> 5
+tree node  rr: 90f050 -> 9
+deleted element in binary search tree
 Nodes of the tree would be visited in LDR order : 
-740070 -> 2
-740030 -> 4
-740090 -> 5
-740010 -> 7
-7410c0 -> 8
-740050 -> 9
+90f070 -> 2
+90f030 -> 5
+90f010 -> 7
+90f050 -> 9
 
    Binary search tree
 
-                  7
-             /         \
-            4             8
-          /   \         /    \
-        2     5         9      NULL
-      /  \   /  \      /  \
-  NULL NULL NULL NULL NULL NULL 
-
+                 7
+             /       \
+            5          9
+          /   \       /  \
+        2    NULL     NULL  NULL
+      /  \     
+    NULL NULL  
 
 */
