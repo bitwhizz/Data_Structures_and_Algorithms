@@ -1,11 +1,14 @@
 /*
-In	binary	search	trees,	all	the	left	subtree	elements	should	be	less	than	root	data	and	all	the	right
+In binary search trees,	all	the	left	subtree	elements	should	be	less	than	root	data	and	all	the	right
 subtree	elements	should	be	greater	than	root	data.	This	is	called	binary	search	tree	property.	Note
 that,	this	property	should	be	satisfied	at	every	node	in	the	tree.
 
 *   The	left	subtree	of	a	node	contains	only	nodes	with	keys	less	than	the	nodes	key.
 *   The	right	subtree	of	a	node	contains	only	nodes	with	keys	greater	than	the	nodes	key.
 *   Both	the	left	and	right	subtrees	must	also	be	binary	search	trees.
+
+Due to this imposed restriction on the kind of data a node can contain. 
+it reduces the worst case average search operation from O(n) to O(logn)
 */
 
 #include<stdio.h>
