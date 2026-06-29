@@ -151,6 +151,11 @@ struct BinarySearchTreeNode* pop(struct StackNode** head_ref){
   return poppedNode;
 }
 
+
+/*
+Note : To check if a BST is valid, an in order traversal should yeild a 
+      sorted list of values in ascending order.
+*/
 void InOrderNonRecursive(struct BinarySearchTreeNode *root)
 {   
   if(root == NULL)
