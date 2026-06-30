@@ -22,16 +22,6 @@ struct BinarySearchTreeNode{
     struct BinarySearchTreeNode *right;
 };
 
-
-struct Qnode{
-    struct BinarySearchTreeNode* treeNode;
-	struct Qnode* next;
-};
-
-struct Queue{
-	struct Qnode* front,*rear;
-};
-
 /* createnode() allocates a new node with the given data and NULL left and
    right pointers. */
 
@@ -54,64 +44,6 @@ struct BinarySearchTreeNode* createnode(int data)
   newNode->right = NULL;
 
   return(newNode);
-}
-
-struct Qnode* new_node(struct BinarySearchTreeNode* treeNode){
-    struct Qnode *temp = (struct Qnode*)malloc(sizeof(struct Qnode));
-    temp->treeNode = treeNode;
-    temp->next = NULL;
-    return temp;
-}
-
-struct Queue *createQueue(){
-	struct Queue *q=(struct Queue*)malloc(sizeof(struct Queue));
-	q->front=q->rear=NULL;
-	return q;
-}
-
-bool isEmptyQueue(struct Queue *q)
-{
-    //if the condition is true then 1 is returned else 0 is returned
-    return (q->front == NULL);
-}
-
-void enqueue(struct Queue* q,struct BinarySearchTreeNode* treeNode){
-
-	struct Qnode* temp=new_node(treeNode);
-
-	if(q->rear==NULL)
-	{
-		q->rear=q->front=temp;
-		return;
-	}
-
-	q->rear->next=temp;
-	q->rear=temp;
-}
-
-struct Qnode* dequeue(struct Queue*q){
-
-	if(q->front==NULL)
-	   return NULL;
-
-	struct Qnode*temp=q->front;
-	q->front=q->front->next;
-
-	if(q->front==NULL)
-		q->rear=NULL;
-
-	return temp;
-}
-
-void DeleteQueue(struct Queue* q)
-{
-    struct Qnode* temp;
-    while(q->front!=NULL){
-        temp = q->front;
-        q->front=q->front->next;
-        free(temp);
-    }
-    free(q);
 }
 
 struct BinarySearchTreeNode *Find(struct BinarySearchTreeNode *root,int data){
